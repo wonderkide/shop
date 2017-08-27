@@ -1,0 +1,219 @@
+/* 
+    Created on : Jun 19, 2017, 1:26:41 PM
+    Author     : wonderkide
+*/
+
+.login-page button[type="submit"] {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    background: #52CFF3;
+    width: 100%;
+    padding: .8em 1em;
+    font-size: 1em;
+    margin: 0.5em 0 0;
+    transition: .5s all;
+}
+.login-page button[type="submit"]:hover{
+    background: #FF590F;
+}
+/*@media screen and (min-width: 768px) { 
+    ul.dropdown-menu.multi-column.multi-column-new-style{
+        margin: 0 auto;
+        width: 50%;
+    }
+}
+@media screen and (min-width: 420px) and (max-width: 767px) { 
+    ul.dropdown-menu.multi-column.multi-column-new-style{
+        width: 80%;
+        margin: 0 auto;
+    }
+}*/
+.site-error{
+    margin: 100px 0;
+}
+.dropdown-new-style{
+    //width: 50%;
+    //margin: 0 auto;
+}
+.dropdown-menu{
+    left: auto;
+}
+ul.dropdown-menu.multi-column.multi-column-new-style{
+    width: auto;
+}
+.menu-grids{
+    min-width: 200px;
+}
+.faq > li > a {
+    color: #333;
+}
+.new-text ul li {
+    margin-bottom: 1em;
+}
+.new-text ul li:last-child {
+    margin-bottom: 0;
+}
+.single-top-left ul.color li a{
+    width: 18px;
+    height: 18px;
+}
+.single-top-left ul.color li a[class="#ffffff"]{
+    border: 1px solid #000;
+}
+.single-top-left ul.color li a span{
+    left: 1px;
+    color: #fff;
+}
+.single-top-left ul.color li a[class="#ffffff"] span{
+    color: #000;
+}
+
+/*********************** checkout ************************/
+.cart-item {
+    width: 10%;
+}
+.cart-sec {
+    margin-bottom: 0;
+}
+.cart-items.head {
+    padding: 5em 0 1em;
+}
+.cart-items .item-name{
+    width: 40%;
+}
+.cart-items tbody .item-name{
+    width: 40%;
+    margin-top: 20px;
+}
+.cart-items .item-price, .cart-items .item-qt, .cart-items .item-price-total{
+    width: 20%;
+}
+.cart-items thead{
+    font-size: 1.2em;
+}
+.cart-items tbody .item-price, .cart-items tbody .item-qt, .cart-items tbody .item-price-total{
+    font-size: 1.2em;
+}
+.cart-items .item-name, .cart-items .item-price, .cart-items .item-qt, .cart-items .item-price-total{
+    float: left;
+}
+.cart-items tbody .item-price, .cart-items tbody .item-qt, .cart-items tbody .item-price-total{
+    margin-top: 40px;
+}
+.cart-items .alert-close{
+    margin-top: 30px;
+}
+.cart-item-detail span.item-detail{
+    width: 50%;
+    float: left;
+    font-size: 1.2em;
+}
+.cart-item-detail span.item-detail .item-detail-color {
+    display: inline-block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    margin-left: 5px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+.cart-step-error .step-error{
+    margin: 4em auto 0;
+}
+.cart-step .steps {
+    position: relative;
+    display: block;
+    width: 80%;
+    margin: 5em auto 0;
+}
+.cart-step ul {
+    list-style: none!important;
+    padding: 0;
+    margin: 0;
+}
+.cart-step ul>li {
+    float: left;
+    width: 25%;
+    display: block;
+    padding: 0;
+    line-height: 1.5em;
+}
+.cart-step a {
+    outline: 0;
+}
+.cart-step .steps a, .cart-step .steps a:hover, .cart-step .steps a:active {
+    display: block;
+    width: auto;
+    margin: 0 .5em .5em;
+    padding: 1em 1em;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.cart-step .steps .number {
+    font-size: 1.429em;
+}
+.cart-step .steps .done a, .cart-step .steps .done a:hover, .cart-step .steps .done a:active {
+    background: #ffa366;
+    color: #fff;
+}
+.cart-step .steps .current a, .cart-step .steps .current a:hover, .cart-step .steps .current a:active {
+    background: #ff6600;
+    color: #fff;
+    cursor: default;
+}
+.cart-step .steps .disabled a, .cart-step .steps .disabled a:hover, .cart-step .steps .disabled a:active {
+    background: #fff0e6;
+    color: #aaa;
+    cursor: default;
+}
+
+/*********************** checkout address ************************/
+@media screen and (max-width: 1366px) { 
+    .cart-address{
+        margin: 0 auto;
+        width: 50%;
+    }
+}
+@media screen and (max-width: 1280px) { 
+    .cart-address{
+        margin: 0 auto;
+        width: 50%;
+    }
+}
+@media screen and (max-width: 1080px) { 
+    .cart-address{
+        margin: 0 auto;
+        width: 60%;
+    }
+}
+@media screen and (max-width: 800px) { 
+    .cart-address{
+        margin: 0 auto;
+        width: 80%;
+    }
+}
+.cart-address .address-form{
+    display: none;
+}
+.cart-address h3{
+    text-align: center;
+}
+.cart-address .btn.btn-address{
+    margin: 15px 0;
+}
+.cart-address{
+    
+}
+.cart-address{
+    
+}
+.cart-address{
+    
+}
