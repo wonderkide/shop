@@ -31,7 +31,7 @@ class ProductOrderItems extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_product', 'id_product_order', 'name', 'color', 'size', 'quantity'], 'required'],
+            [['id_product', 'id_product_order', 'name', /*'color', 'size',*/ 'quantity'], 'required'],
             [['id_product', 'id_product_order', 'quantity'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['color', 'size'], 'string', 'max' => 64],

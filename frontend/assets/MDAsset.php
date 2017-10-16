@@ -37,6 +37,7 @@ class MDAsset extends AssetBundle
         //'js/cart.js',
         
         'js/bootstrap.js',
+        'js/bootbox.min.js',
         'js/custom.js',
     ];
     public $depends = [

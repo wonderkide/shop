@@ -38,9 +38,11 @@ jQuery(document).ready(function($){
                 }
             });*/
         });
-        //console.log(allStorage()[0]);
-        //$('.cart-items .container.items').append('<div class="text-center"><a class="btn btn-warning" onclick="checkoutProduct();">Checkout!</a></div>');
-        $('.cart-items .container.items').append('<div class="text-center"><a class="btn btn-warning" href="/store/create-order">ดำเนินการสั่งซื้อ</a></div>');
+        if($('.cart-items').attr('page')=='confirm'){
+            $('.cart-items .container.items').append('<div class="text-center"><a class="btn btn-warning" onclick="checkoutProduct();">ยืนยันการสั่งซื้อ</a></div>');
+        }else{
+            $('.cart-items .container.items').append('<div class="text-center"><a class="btn btn-warning" href="/store/create-order">ดำเนินการสั่งซื้อ</a></div>');
+        }
     }
     else{
         $('.cart-items .container.items').append('<h4 class="text-center wow slideInRight animated" data-wow-delay=".5s">your cart is empty</h4>');
@@ -133,8 +135,37 @@ function checkoutProduct(){
         //contentType: "application/json; charset=utf-8",
         //dataType: "json",
         success: function(data){
-            if(data){
-                console.log(data);
+            if(data==1){
+                simpleCart.empty();
+                bootbox.confirm({ 
+                    size: "small",
+                    message: "ทำการสั่งซื้อเรียบร้อย",
+                    closeButton: false,
+                    buttons: {
+                        confirm: {
+                            label: 'ชำระเงิน',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'ออก',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function(result){ 
+                        if(result){
+                            window.location.href = "/store/cart/payment";
+                        }
+                    }
+                });
+            }
+            else{
+                bootbox.alert({ 
+                    size: "small",
+                    title: "Error!",
+                    message: "มีบางอย่างผิดพลาด กรุณาลองใหม่ หรือติดต่อเจ้าหน้าที่", 
+                    callback: function(){ /* your callback code */ }
+                });
+                
             }
         }
     });

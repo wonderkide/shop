@@ -1,4 +1,5 @@
 <?php
+
 $this->registerJsFile(
     Yii::$app->assetManager->getPublishedUrl('@MDAsset').'/js/checkout.js',
     ['depends' => [\yii\web\JqueryAsset::className(),frontend\assets\MDAsset::className()]]
@@ -17,7 +18,7 @@ $this->registerJsFile(
 <?= $this->render('cart/_step', ['err' => $err, 'step' => $step]); ?>
 
 <!--cart-items-->
-<div class="cart-items" page="cart">
+<div class="cart-items" page="confirm">
         <div class="container items">
             <h3 class="wow fadeInUp animated" data-wow-delay=".5s">My Shopping Cart(<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)</h3>
             <table class="table table-striped">

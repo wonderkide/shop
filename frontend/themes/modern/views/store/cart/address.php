@@ -4,7 +4,6 @@ use yii\bootstrap\ActiveForm;
 use kartik\widgets\Select2;
 use yii\web\View;
 
-use kartik\widgets\Alert;
 $this->registerCssFile(Yii::$app->assetManager->getPublishedUrl('@MDAsset')."/jquery.Thailand.js/dist/jquery.Thailand.min.css", [
     'depends' => [\yii\bootstrap\BootstrapAsset::className(), frontend\assets\MDAsset::className()],]);
 $this->registerJsFile(
@@ -33,70 +32,11 @@ $this->registerJsFile(
                 </ol>
         </div>
 </div>
-<?php
-?>
-<!--//breadcrumbs-->
-<!--<div class="cart-items head">
-    <div class="container">
-        <h3 class="wow fadeInUp animated" data-wow-delay=".5s">My Shopping Cart(<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)</h3>
-    </div>
-</div>-->
-<?php
-if($err):
-?>
-<div class="cart-step-error">
-    <div class="container">
-        <?php
-        echo Alert::widget([
-            'type' => Alert::TYPE_DANGER,
-            'title' => ' มีบางอย่างผิดพลาด!',
-            'icon' => 'glyphicon glyphicon-remove-sign',
-            'body' => 'กรุณาลองใหม่อีกครั้ง',
-            'showSeparator' => true,
-            'delay' => 10000,
-            'options' => ['class' => 'step-error'],
-        ]);
-        ?>
-    </div>
-</div>
-<?php
-endif;
-?>
-<div class="cart-step">
-    <div class="container">
-        <!--<a class="btn btn-primary">STEP 1</a>
-        <a class="btn btn-primary">STEP 2</a>
-        <a class="btn btn-primary">STEP 3</a>
-        <a class="btn btn-primary">STEP 4</a>-->
-        <div class="steps clearfix">
-            <ul role="tablist">
-                <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
-                    <a id="example-basic-t-0" href="#example-basic-h-0" aria-controls="example-basic-p-0">
-                        <span class="number">1.</span> ตะกร้าสินค้า
-                    </a>
-                </li>
-                <li role="tab" class="current" aria-disabled="false" aria-selected="true">
-                    <a id="example-basic-t-1" href="#example-basic-h-1" aria-controls="example-basic-p-1">
-                        <!--<span class="current-info audible">current step: </span>-->
-                        <span class="number">2.</span> ที่อยู่สำหรับจัดส่ง
-                    </a>
-                </li>
-                <li role="tab" class="disabled" aria-disabled="true">
-                    <a id="example-basic-t-2" href="#example-basic-h-2" aria-controls="example-basic-p-2">
-                        <span class="number">3.</span> ยืนยันการสั่งซื้อ
-                    </a>
-                </li>
-                <li role="tab" class="disabled last" aria-disabled="true">
-                    <a id="example-basic-t-2" href="#example-basic-h-2" aria-controls="example-basic-p-2">
-                        <span class="number">3.</span> ชำระเงิน
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+
+<?= $this->render('cart/_step', ['err' => $err, 'step' => $step]); ?>
+
 <!--cart-items-->
-<div class="cart-items cart-address">
+<div class="cart-items cart-address" page="address">
             <div class="address-block wow fadeInUp animated" data-wow-delay=".5s">
                 <h3 class="">My Address</h3>
                 
@@ -124,6 +64,7 @@ endif;
                 
 
                 <div class="address-form">
+                    <p><a class="btn btn-default btn-address form" role="button">เลือกที่อยู่</a></p>
                     <div id="address-form-loader">
                         <div uk-spinner></div> รอสักครู่ กำลังโหลดฐานข้อมูล...
                     </div>
@@ -168,9 +109,12 @@ endif;
 <?php
 $this->registerJs(
     "$('.btn-address.add').on('click', function() {
-        console.log('change');
         $('.address-selected').hide();
         $('.address-form').show();
+    });
+    $('.btn-address.form').on('click', function() {
+        $('.address-selected').show();
+        $('.address-form').hide();
     });",
     View::POS_END
 );

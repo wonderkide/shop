@@ -16,6 +16,7 @@ use common\models\Product;
 use common\models\UserAddress;
 use yii\filters\ContentNegotiator;
 use yii\web\Response;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -276,10 +277,17 @@ class StoreController extends MyController
     }
     public function actionCart($slug=null) {
         $err = FALSE;
+        //$step = $slug;
         if(isset(Yii::$app->request->get()['e']) && Yii::$app->request->get()['e'] == 1){
             $err = TRUE;
         }
-        if($slug == 'address'){
+        if(!$slug){
+            return $this->render('cart', [
+                'err' => $err,
+                'step' => $slug,
+            ]);
+        }
+        else if($slug == 'address'){
             $newaddress = new UserAddress();
             $address = $this->genAddress();
             $addmodel = new \yii\base\DynamicModel(['address']);
@@ -292,21 +300,38 @@ class StoreController extends MyController
                 }
             }
             if ($addmodel->load(Yii::$app->request->post()) && $addmodel->validate()) {
-                //if($addmodel->save()){
-                var_dump($addmodel);exit();
+                $orderaddModel = \common\models\ProductOrder::findOne(['id_user'=> \yii::$app->user->id, 'status'=>0]);
+                $orderaddModel->address = $addmodel->address;
+                $orderaddModel->status = 1;
+                $orderaddModel->description = 'add address';
+                if($orderaddModel->save()){
+                //var_dump($addmodel);exit();
                     return $this->redirect('/store/cart/confirm');
-                //}
+                }
             }
             return $this->render('cart/address', [
                 'err' => $err,
                 'newaddress' => $newaddress,
                 'address' => $address,
                 'addmodel' => $addmodel,
+                'step' => $slug,
         ]);
         }
-        return $this->render('cart', [
-            'err' => $err,
-        ]);
+        else if($slug == 'confirm'){
+            return $this->render('cart/confirm', [
+                'err' => $err,
+                'step' => $slug,
+            ]);
+        }
+        else if($slug == 'payment'){
+            return $this->render('cart/payment', [
+                'err' => $err,
+                'step' => $slug,
+            ]);
+        }
+        else{
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
     
     public function actionCreateOrder() {
@@ -433,8 +458,45 @@ class StoreController extends MyController
         //return Yii::$app->request->post();
         if(Yii::$app->request->post()){
             $product = json_decode(Yii::$app->request->post()['p']);
-            var_dump($product);
-            return 1;
+            //var_dump($product);
+            $flag = true;
+            $qt = 0;
+            $price = 0;
+            if($product){
+                $order = \common\models\ProductOrder::findOne(['id_user'=> \yii::$app->user->id, 'status'=>1]);
+                if($order){
+                    foreach ($product as $item) {
+                        $itemModel = new \common\models\ProductOrderItems();
+                        $itemModel->id_product = $item->pid;
+                        $itemModel->id_product_order = $order->id;
+                        $itemModel->name = $item->name;
+                        if(isset($item->color)){
+                            $itemModel->color = $item->color;
+                        }
+                        if(isset($item->size)){
+                            $itemModel->size = $item->size;
+                        }
+                        $itemModel->quantity = $item->quantity;
+                        if($itemModel->save()){
+                            $qt += $item->quantity;
+                            $price += $item->price;
+                        }else{
+                            $flag = FALSE;
+                        }
+                    }
+                    if($flag){
+                        $order->price = $price;
+                        $order->discount = 0;
+                        $order->total = $order->price-$order->discount;
+                        $order->quantity = $qt;
+                        $order->description = 'confirm order';
+                        $order->status = 2;
+                        if($order->save()){
+                            return 1;
+                        }
+                    }
+                }
+            }
         }
         return 0;
     }
